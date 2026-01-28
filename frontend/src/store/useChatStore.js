@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "./useAuthStore";
 
@@ -10,41 +10,36 @@ export const useChatStore = create((set, get) => ({
     isUsersLoading: false,
     isMessagesLoading: false,
 
-
     getUsers: async () => {
-        set({ isUsersLoading: true })
+        set({ isUsersLoading: true });
         try {
-            // FIX 1: Added 'await' here
+
             const res = await axiosInstance.get("/messages/users");
             set({ users: res.data });
-        }
-        catch (error) {
+        } catch (error) {
             toast.error(error.response.data.message);
-        }
-        finally {
+        } finally {
             set({ isUsersLoading: false });
         }
     },
 
     getMessages: async (userId) => {
-        set({ isMessagesLoading: true })
+        set({ isMessagesLoading: true });
         try {
-            // FIX 2: Changed double quotes " to backticks ` for variable interpolation
+
             const res = await axiosInstance.get(`/messages/${userId}`);
             set({ messages: res.data });
-        }
-        catch (error) {
+        } catch (error) {
             toast.error(error.response.data.message);
-        }
-        finally {
+        } finally {
             set({ isMessagesLoading: false });
         }
     },
 
+
     sendMessage: async (messageData) => {
         const { selectedUser, messages } = get();
         try {
-            // This one was already correct with backticks
             const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
             set({ messages: [...messages, res.data] });
         } catch (error) {
@@ -74,5 +69,4 @@ export const useChatStore = create((set, get) => ({
     },
 
     setSelectedUser: (selectedUser) => set({ selectedUser }),
-
-}))
+}));
