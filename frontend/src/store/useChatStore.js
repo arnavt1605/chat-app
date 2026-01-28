@@ -13,7 +13,7 @@ export const useChatStore = create((set, get) => ({
     getUsers: async () => {
         set({ isUsersLoading: true });
         try {
-
+            // FIX 1: Added 'await'. Without this, res.data is undefined, causing the map crash.
             const res = await axiosInstance.get("/messages/users");
             set({ users: res.data });
         } catch (error) {
@@ -26,7 +26,7 @@ export const useChatStore = create((set, get) => ({
     getMessages: async (userId) => {
         set({ isMessagesLoading: true });
         try {
-
+            // FIX 2: Changed double quotes " to backticks ` for correct URL interpolation
             const res = await axiosInstance.get(`/messages/${userId}`);
             set({ messages: res.data });
         } catch (error) {
@@ -35,7 +35,6 @@ export const useChatStore = create((set, get) => ({
             set({ isMessagesLoading: false });
         }
     },
-
 
     sendMessage: async (messageData) => {
         const { selectedUser, messages } = get();

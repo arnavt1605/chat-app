@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
-import cloudinary from "../lib/cloudinary.js"; // Added missing cloudinary import
+import cloudinary from "../lib/cloudinary.js"; // Ensure this import exists
 import { getReceiverSocketId, io } from "../lib/socket.js";
 
 export const getUsersForSidebar = async (req, res) => {
@@ -22,14 +22,13 @@ export const getMessages = async (req, res) => {
 
         const messages = await Message.find({
             $or: [
-                { senderId: myId, receiverId: userToChatId },
+                { senderId: myId, receiverId: userToChatId }, // Ensure 'receiverId' is spelled correctly
                 { senderId: userToChatId, receiverId: myId }
             ]
         });
 
         res.status(200).json(messages);
     } catch (error) {
-
         console.log("Error in getMessages controller: ", error.message);
         res.status(500).json({ error: "Internal server error" });
     }
