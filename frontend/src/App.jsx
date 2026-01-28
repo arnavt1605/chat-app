@@ -2,10 +2,10 @@ import React from 'react'
 import Navbar from './components/Navbar'
 
 import { Loader } from "lucide-react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { Toaster } from "react-hot-toast"
 import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+
 
 
 
