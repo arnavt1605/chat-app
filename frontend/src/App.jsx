@@ -36,6 +36,7 @@ const App = () => {
 
   return (
     <div>
+      <Toaster position="top-right" />
       <Navbar />
 
       <Routes>
@@ -45,8 +46,6 @@ const App = () => {
         <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
 
       </Routes>
-
-      <Toaster />
 
     </div>
   )
